@@ -12,9 +12,12 @@ import IlustrasiLogin from "../assets/Website Assets/Illustrasi Login.png";
 import Logo from "../assets/Website Assets/Logo.png";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Username is required"),
@@ -33,8 +36,8 @@ const Login = () => {
   };
 
   const onSubmit = ({ username, password }) => {
-    console.log("Hello");
-    return dispatch(authActions.login({ username, password }));
+    dispatch(authActions.login({ username, password }));
+    navigate("/")
   };
 
   return (

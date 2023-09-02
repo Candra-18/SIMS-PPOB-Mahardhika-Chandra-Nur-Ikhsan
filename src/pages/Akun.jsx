@@ -3,13 +3,16 @@ import ProfilePhoto from "../assets/Website Assets/Profile Photo.png";
 import Navbar from "../component/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions, authActions } from "../store";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 const Akun = () => {
   const users = useSelector((state) => state.users.item);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     dispatch(authActions.logOut());
+    navigate("/Login")
   };
 
   useEffect(() => {
