@@ -9,6 +9,7 @@ import Pembayaran from "./Pembayaran";
 import TopUp from "./TopUp";
 import EditProfile from "./EditProfile";
 import Transaction from "./Transaction";
+import { PrivateRoute } from "../component/PrivateRoute";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../store";
 import { history } from "services";
@@ -20,15 +21,15 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       if (window.location.pathname == "/Registrasi") {
-        navigate("/Registrasi")
+        navigate("/Registrasi");
       } else {
         try {
           const response = await dispatch(userActions.getById());
           if (response.payload.message != "Sukses") {
-            navigate("/Login")
-          } 
+            navigate("/Login");
+          }
         } catch (error) {
-          navigate("/Login")
+          navigate("/Login");
         }
       }
     };
@@ -41,12 +42,15 @@ function App() {
       <Routes>
         <Route path="/Login" element={<Login />} />
         <Route path="/Registrasi" element={<Registrasi />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/Akun" element={<Akun />} />
-        <Route path="/TopUp" element={<TopUp />} />
-        <Route path="/Pembayaran" element={<Pembayaran />} />
-        <Route path="/Transaction" element={<Transaction />} />
-        <Route path="/EditProfile" element={<EditProfile />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/Akun" element={<Akun />} />
+          <Route path="/TopUp" element={<TopUp />} />
+          <Route path="/Pembayaran" element={<Pembayaran />} />
+          <Route path="/Transaction" element={<Transaction />} />
+          <Route path="/EditProfile" element={<EditProfile />} />
+        </Route>
       </Routes>
     </>
   );
